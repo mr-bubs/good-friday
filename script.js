@@ -24,39 +24,69 @@ function handleNo() {
     const yesBtn = document.getElementById('yes-btn');
     const mainImg = document.getElementById('main-character');
     const samDialogue = document.getElementById('sam-dialogue');
-    const scene5 = document.getElementById('scene5'); // Select the scene container
+    const questionText = document.getElementById('question-text');
+    const scene5 = document.getElementById('scene5');
 
-    // 1. Shrink No button
-    let noScale = 1 - (noClickCount * 0.2);
-    if (noScale < 0) noScale = 0;
-    noBtn.style.transform = `scale(${noScale})`;
+    // --- PHASE 1: YOSEMITE SAM TAKEOVER ---
+    
+    // 1. Hide the Question and Buttons immediately
+    questionText.classList.add('hidden');
+    yesBtn.classList.add('hidden');
+    noBtn.classList.add('hidden');
 
-    // 2. Grow Yes button
-    let yesScale = 1 + (noClickCount * 0.5); 
-    yesBtn.style.transform = `scale(${yesScale})`;
-
-    // 3. Yosemite Sam logic
+    // 2. Show Yosemite Sam & Dialogue
     mainImg.src = "yosemite-sam.png"; 
     mainImg.style.width = "350px"; 
     samDialogue.classList.remove('hidden');
 
-    // 4. WAIT 4 SECONDS 
+    // 3. Prepare the size/growth logic for later
+    let noScale = 1 - (noClickCount * 0.2);
+    if (noScale < 0) noScale = 0;
+    noBtn.style.transform = `scale(${noScale})`;
+
+    let yesScale = 1 + (noClickCount * 0.5); 
+    yesBtn.style.transform = `scale(${yesScale})`;
+
+    // --- PHASE 2: THE SEQUENCE (After 4 Seconds) ---
     setTimeout(() => {
-        // Switch to Cartoon Yoongi
-        mainImg.src = "yoongi-cartoon.png";
-        mainImg.style.width = "100%"; // Fit the new column width
+        // 1. Remove Sam and his dialogue
         samDialogue.classList.add('hidden');
         
-        // --- THE NEW LAYOUT SWITCH ---
-        scene5.classList.add('split-layout'); // Activates the CSS we just wrote
+        // 2. Switch Image to Cartoon Yoongi (but keep it hidden for a moment)
+        mainImg.src = "yoongi-cartoon.png";
+        mainImg.style.width = "100%"; 
+        mainImg.classList.add('hidden'); // Hide Yoongi initially
         
-        // Reset Yes button transform so it sits nicely in the new spot
-        // (We keep the size increase but remove manual margins)
-        yesBtn.style.transformOrigin = "top right";
-        yesBtn.style.transform = `scale(${yesScale})`;
+        // 3. Activate the "Split Layout" (Left/Right positioning)
+        scene5.classList.add('split-layout');
+
+        // --- THE REVEAL STEPS ---
         
-    }, 4000); 
+        // Step A: Bring back the Question (Immediately after Sam leaves)
+        questionText.classList.remove('hidden');
+        
+        // Step B: Bring back YES Button (1 second later)
+        setTimeout(() => {
+            yesBtn.classList.remove('hidden');
+            // Ensure it keeps its grown size
+            yesBtn.style.transformOrigin = "top right";
+            yesBtn.style.transform = `scale(${yesScale})`; 
+        }, 1000);
+
+        // Step C: Bring in Cartoon Yoongi (2 seconds later)
+        setTimeout(() => {
+            mainImg.classList.remove('hidden');
+            // Add a little slide-in animation class if you want, or just pop in
+        }, 2000);
+
+        // Step D: Bring back NO Button (3 seconds later)
+        setTimeout(() => {
+            noBtn.classList.remove('hidden');
+        }, 3000);
+
+    }, 4000); // End of Yosemite Sam time
 }
+
 
 function handleYes() {
     nextScene(6);
