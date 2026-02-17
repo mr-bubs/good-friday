@@ -24,36 +24,38 @@ function handleNo() {
     const yesBtn = document.getElementById('yes-btn');
     const mainImg = document.getElementById('main-character');
     const samDialogue = document.getElementById('sam-dialogue');
+    const scene5 = document.getElementById('scene5'); // Select the scene container
 
-    // 1. Shrink the No button
+    // 1. Shrink No button
     let noScale = 1 - (noClickCount * 0.2);
     if (noScale < 0) noScale = 0;
     noBtn.style.transform = `scale(${noScale})`;
 
-    // 2. Grow the Yes button
-    let yesScale = 1 + (noClickCount * 0.5); // Grows by 50% each click
+    // 2. Grow Yes button
+    let yesScale = 1 + (noClickCount * 0.5); 
     yesBtn.style.transform = `scale(${yesScale})`;
 
-    // 3. Change Yoongi to Yosemite Sam
+    // 3. Yosemite Sam logic
     mainImg.src = "yosemite-sam.png"; 
-    mainImg.style.width = "350px"; // FORCE SAM TO BE BIGGER
-    
-    // 4. Show "Think again deer"
+    mainImg.style.width = "350px"; 
     samDialogue.classList.remove('hidden');
 
-    // 5. WAIT 4 SECONDS (Timing fix)
+    // 4. WAIT 4 SECONDS 
     setTimeout(() => {
         // Switch to Cartoon Yoongi
         mainImg.src = "yoongi-cartoon.png";
-        mainImg.style.width = "250px"; // Reset width for Yoongi
-        samDialogue.classList.add('hidden'); // Hide Sam's text
+        mainImg.style.width = "100%"; // Fit the new column width
+        samDialogue.classList.add('hidden');
         
-        // 6. Move Yes Button to the Left (Where he points)
-        // We add a negative margin to push it left, and keep the growth scale
-        yesBtn.style.transition = "all 0.5s ease";
-        yesBtn.style.transform = `scale(${yesScale}) translateX(-50px)`; 
+        // --- THE NEW LAYOUT SWITCH ---
+        scene5.classList.add('split-layout'); // Activates the CSS we just wrote
         
-    }, 4000); // 4000 milliseconds = 4 seconds
+        // Reset Yes button transform so it sits nicely in the new spot
+        // (We keep the size increase but remove manual margins)
+        yesBtn.style.transformOrigin = "top right";
+        yesBtn.style.transform = `scale(${yesScale})`;
+        
+    }, 4000); 
 }
 
 function handleYes() {
