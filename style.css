@@ -71,6 +71,7 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: all 0.5s ease; 
 }
 #yes-btn { background-color: #4CAF50; color: white; }
 #no-btn { background-color: #f44336; color: white; transition: transform 0.2s; }
