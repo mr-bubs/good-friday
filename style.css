@@ -117,3 +117,14 @@ button {
     left: 50%;
     transform: translateX(-50%);
 }
+
+/* Animation for the reveal sequence */
+.main-img, .buttons button, #question-text {
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Ensure hidden actually hides things but keeps them ready */
+.hidden {
+    display: none;
+    opacity: 0;
+}
