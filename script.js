@@ -36,6 +36,7 @@ function handleNo() {
 
     // 2. Show Yosemite Sam & Dialogue
     mainImg.src = "yosemite-sam.png"; 
+    // Force Sam to be big
     mainImg.style.width = "350px"; 
     samDialogue.classList.remove('hidden');
 
@@ -52,40 +53,38 @@ function handleNo() {
         // 1. Remove Sam and his dialogue
         samDialogue.classList.add('hidden');
         
-        // 2. Switch Image to Cartoon Yoongi (but keep it hidden for a moment)
+        // 2. Prepare Cartoon Yoongi (Hidden initially)
         mainImg.src = "yoongi-cartoon.png";
         mainImg.style.width = "100%"; 
-        mainImg.classList.add('hidden'); // Hide Yoongi initially
+        mainImg.classList.add('hidden'); 
         
         // 3. Activate the "Split Layout" (Left/Right positioning)
         scene5.classList.add('split-layout');
 
         // --- THE REVEAL STEPS ---
         
-        // Step A: Bring back the Question (Immediately after Sam leaves)
+        // Step A: Bring back the Question (Immediately)
         questionText.classList.remove('hidden');
         
-        // Step B: Bring back YES Button (1 second later)
+        // Step B: Bring in Yoongi AND Yes Button (Together, 1s later)
         setTimeout(() => {
+            // Show Yoongi
+            mainImg.classList.remove('hidden');
+            
+            // Show Yes Button
             yesBtn.classList.remove('hidden');
-            // Ensure it keeps its grown size
             yesBtn.style.transformOrigin = "top right";
             yesBtn.style.transform = `scale(${yesScale})`; 
         }, 1000);
 
-        // Step C: Bring in Cartoon Yoongi (2 seconds later)
-        setTimeout(() => {
-            mainImg.classList.remove('hidden');
-            // Add a little slide-in animation class if you want, or just pop in
-        }, 2000);
-
-        // Step D: Bring back NO Button (3 seconds later)
+        // Step C: Bring back NO Button (2s later)
         setTimeout(() => {
             noBtn.classList.remove('hidden');
         }, 3000);
 
     }, 4000); // End of Yosemite Sam time
 }
+
 
 
 function handleYes() {
