@@ -1,0 +1,80 @@
+body {
+    background-color: #ffebee; /* Soft pink/red theme */
+    font-family: 'Courier New', monospace; /* Typewriter style */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+}
+
+.hidden { display: none; }
+.active { display: block; animation: fadeIn 1s; }
+
+h1 { font-size: 24px; color: #333; margin-bottom: 30px; }
+
+/* The Arrow Buttons */
+.arrow-btn {
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    color: #d32f2f;
+    animation: bounce 2s infinite;
+}
+
+/* Images */
+.main-img {
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Dialogue Bubbles */
+.dialogue-box {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid #333;
+    margin: 15px auto;
+    width: fit-content;
+    position: relative;
+    font-weight: bold;
+}
+
+/* Make it look like a speech bubble */
+.dialogue-box::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    border-width: 0 10px 10px;
+    border-style: solid;
+    border-color: white transparent;
+    display: block;
+    width: 0;
+}
+
+/* Buttons */
+.buttons { margin-top: 20px; }
+button {
+    padding: 10px 30px;
+    font-size: 18px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#yes-btn { background-color: #4CAF50; color: white; }
+#no-btn { background-color: #f44336; color: white; transition: transform 0.2s; }
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
