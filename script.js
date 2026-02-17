@@ -14,40 +14,48 @@ function nextScene(sceneNumber) {
     if (sceneNumber === 4) {
         setTimeout(() => {
             document.getElementById('yoongi-reveal').classList.remove('hidden-content');
-            // Using a simple fade in effect via CSS class if you want, 
-            // or just letting it pop in as requested.
-        }, 2000); // 2 second delay
+        }, 2000); 
     }
 }
 
 function handleNo() {
     noClickCount++;
     const noBtn = document.getElementById('no-btn');
+    const yesBtn = document.getElementById('yes-btn');
     const mainImg = document.getElementById('main-character');
     const samDialogue = document.getElementById('sam-dialogue');
 
     // 1. Shrink the No button
-    let currentScale = 1 - (noClickCount * 0.2);
-    if (currentScale < 0) currentScale = 0;
-    noBtn.style.transform = `scale(${currentScale})`;
+    let noScale = 1 - (noClickCount * 0.2);
+    if (noScale < 0) noScale = 0;
+    noBtn.style.transform = `scale(${noScale})`;
 
-    // 2. Change Yoongi to Yosemite Sam
+    // 2. Grow the Yes button
+    let yesScale = 1 + (noClickCount * 0.5); // Grows by 50% each click
+    yesBtn.style.transform = `scale(${yesScale})`;
+
+    // 3. Change Yoongi to Yosemite Sam
     mainImg.src = "yosemite-sam.png"; 
+    mainImg.style.width = "350px"; // FORCE SAM TO BE BIGGER
     
-    // 3. Show "Think again deer"
+    // 4. Show "Think again deer"
     samDialogue.classList.remove('hidden');
 
-    // 4. After a moment, switch to Cartoon Yoongi pointing at Yes
+    // 5. WAIT 4 SECONDS (Timing fix)
     setTimeout(() => {
+        // Switch to Cartoon Yoongi
         mainImg.src = "yoongi-cartoon.png";
+        mainImg.style.width = "250px"; // Reset width for Yoongi
         samDialogue.classList.add('hidden'); // Hide Sam's text
-    }, 2000);
+        
+        // 6. Move Yes Button to the Left (Where he points)
+        // We add a negative margin to push it left, and keep the growth scale
+        yesBtn.style.transition = "all 0.5s ease";
+        yesBtn.style.transform = `scale(${yesScale}) translateX(-50px)`; 
+        
+    }, 4000); // 4000 milliseconds = 4 seconds
 }
 
 function handleYes() {
-    // Go to final scene
     nextScene(6);
-    
-    // The mask reveal GIF will auto-play since it's an <img> tag in Scene 6.
-    // Ensure your GIF file ("mask-reveal.gif") plays the full animation once.
 }
